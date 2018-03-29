@@ -7,7 +7,7 @@ author:     火花
 header-img: img/post-bg-ios9-web.jpg
 catalog: true
 tags:
-    - java、Spring
+    - [java，Spring]
 ---
 
 ## 运行Spring应用程序 ##
