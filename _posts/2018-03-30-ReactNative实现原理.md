@@ -44,40 +44,51 @@ iOS原生API有个JavaScriptCore框架，通过它就能实现JS和OC交互
 1.加载远程服务器中JS代码
 
 	[RCTJavaScriptLoader loadBundleAtURL]
+
 2.开启异步加载JS代码  
 
 	attemptAsynchronousLoadOfBundleAtURL(C函数)
+
 3.让批量交接对象执行源代码
 
 	[RCTBatchedBridge executeSourceCode:sourceCode]  
+
 交给JS执行者（RCTJSCExecutor）执行源码)真正执行JS代码的是RCTJSCExecutor对象
  
 	[RCTJSCExecutor executeApplicationScript]
+
 5.发送JS代码执行完成通知  
 
 	[postNotificationName:RCTJavaScriptDidLoadNotification]
+
 6.RCTRootView监听到RCTJavaScriptDidLoadNotification通知  
 7.创建RCTRootContentView  
 8.获取RCTBridge中的RCTUIManager注册RCTRootView,并且记录RCTRootView，_viewRegistry  
 9.通知JS运行App  
 
 	[RCTRootView runApplication:bridge]
+
 10.通过桥接对象让JS调用AppRegistry
 
 	[RCTBridge enqueueJSCall:@"AppRegistry" method:@"runApplication" args:@[moduleName, appParameters]completion:NULL]
+
 11.通过批量桥架让JS执行AppRegistry方法 
 
-	[RCTBatchedBridge _actuallyInvokeAndProcessModule:module method:method arguments:args queue:RCTJSThread]  
+	[RCTBatchedBridge _actuallyInvokeAndProcessModule:module method:method arguments:args queue:RCTJSThread] 
+ 
 12.让JS执行者调用JS代码 
 
-	[RCTJSCExecutor _executeJSCall:bridgeMethod arguments:@[module, method, args] unwrapResult:unwrapResult callback:onComplete]  
+	[RCTJSCExecutor _executeJSCall:bridgeMethod arguments:@[module, method, args] unwrapResult:unwrapResult callback:onComplete] 
+ 
 13.执行完JS代码，就能获取执行JS结果，是一个数组，OC需要做的事情都会保存到这个数组中  
 14.处理执行完JS代码返回的结果对象
 
 	[RCTBatchedBridge _processResponse:json error:error]  
+
 15.处理JS返回的数据，JS会返回的方法调用数组：按顺序描述需要调用哪个对象的方法，一组调用包含（module，method，arguments）
 
 	[RCTBatchedBridge handleBuffer]  
+
 16.遍历数组，依次执行原生方法
 
 	[self callNativeModule:[moduleIDs[index] integerValue]method:[methodIDs[index] integerValue]params:paramsArrays[index]]
@@ -86,12 +97,15 @@ iOS原生API有个JavaScriptCore框架，通过它就能实现JS和OC交互
 1.通知JS运行App
 
 	[RCTRootView runApplication:bridge]
+
 2.处理执行完JS代码(runApplication)返回的相应，包含需要添加多少子控件的信息。
 
 	[RCTBatchedBridge _processResponse:json error:error]
+
 3.批量桥架对象调用批量处理完成方法
 
 	[RCTBatchedBridge batchDidComplete]
+
 4.RCTUIManager调用批量处理完成的方法，就会开始去加载rootView的子控件。
 
 	[RCTUIManager batchDidComplete]
@@ -111,19 +125,24 @@ RCTShadowView:保存对应UIView的布局和子控件,管理UIView的加载
 6.布局RCTRootView和增加子控件
 
 	[RCTUIManager _layoutAndMount]
+
 7.给RCTRootView对应的RCTRootShadowView设置子控件
 
 	[RCTUIManager setChildren:reactTags:]
+
 注意：此方法也是JS调用OC方法  
 8.遍历子控件数组，给RCTRootShadowView插入所有子控件
 
 	[RCTRootShadowView insertReactSubview:view atIndex:index++]
+
 9.处理保存在RCTShadowView中属性，就会去布局RCTShadowView对应UIView的所有子控件
 
 	[RCTShadowView processUpdatedProperties:parentProperties:]
+
 10.给原生View添加子控件 
 
 	[RCTView didUpdateReactSubviews]
+
 11.完成UI渲染
 
 ## React Native事件处理流程(iOS) ##
@@ -145,6 +164,7 @@ RCTTouchHandler:内部实现了touchBegin等触摸方法，用来处理触摸事
 5.RCTTouchHandler的touch方法，会执行
 
 	[RCTTouchHandler _updateAndDispatchTouches:eventName:]
+
 内部会创建RCTTouchEvent事件对象
 
 6.让事件分发对象调用发送事件对象,内部会把事件保存到_eventQueue（事件队列中）
