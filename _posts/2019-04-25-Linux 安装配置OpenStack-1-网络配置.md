@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      安装部署OpenStack
+title:      安装部署OpenStack-1
 subtitle:   网络配置
 date:       2019-06-19
 author:     火花
