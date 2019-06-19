@@ -10,14 +10,14 @@ tags:
     - env
 ---
 # 控制节点 #
-## 1、Edit the file: /etc/sysconfig/network-scripts/ifcfg-eno1  ##
+**1、Edit the file: /etc/sysconfig/network-scripts/ifcfg-eno1**
 
 	DEVICE=INTERFACE_NAME
 	TYPE=Ethernet
 	ONBOOT="yes"
 	BOOTPROTO="none"
 
-##  2、Set the hostname of the node to controller. ##
+**2、Set the hostname of the node to controller.**
 	# controller
 	10.50.10.49       controller
 	
@@ -29,13 +29,13 @@ tags:
 
 
 # 计算节点 #
-## 1、Edit the file: /etc/sysconfig/network-scripts/ifcfg-eno1  ##
+**1、Edit the file: /etc/sysconfig/network-scripts/ifcfg-eno1**
 	DEVICE=INTERFACE_NAME
 	TYPE=Ethernet
 	ONBOOT="yes"
 	BOOTPROTO="none"
 
-##  2、Set the hostname of the node to controller. ##
+**2、Set the hostname of the node to controller.**
 	# controller
 	10.50.10.49       controller
 	
