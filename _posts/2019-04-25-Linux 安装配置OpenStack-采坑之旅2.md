@@ -19,15 +19,16 @@ tags:
 # 对策 #
 vi /etc/httpd/conf.d/00-placement-api.conf
 <virtualhost *:8778=""> 中增加下面内容
-<Directory /usr/bin>
-<IfVersion >= 2.4>
-    Require all granted
-</IfVersion>
-<IfVersion < 2.4>
-    Order allow,deny
-    Allow from all
-</IfVersion>
-</Directory>
+
+	<Directory /usr/bin>
+	<IfVersion >= 2.4>
+	    Require all granted
+	</IfVersion>
+	<IfVersion < 2.4>
+	    Order allow,deny
+	    Allow from all
+	</IfVersion>
+	</Directory>
 
 重启服务。
 
