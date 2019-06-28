@@ -15,7 +15,7 @@ tags:
 
 	#  mysql -u root -p
 
-2、创建keystone数据库:
+2、创建glance数据库:
 
 	MariaDB [(none)]> CREATE DATABASE glance;
 
